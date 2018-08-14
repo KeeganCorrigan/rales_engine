@@ -17,7 +17,12 @@ describe 'Merchants API' do
       Transaction.create!(invoice: invoice_1, credit_card_number: 9876, credit_card_expiration_date: " ", result: "success", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
       Transaction.create!(invoice: invoice_2, credit_card_number: 9876, credit_card_expiration_date: " ", result: "success", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
       Transaction.create!(invoice: invoice_3, credit_card_number: 9876, credit_card_expiration_date: " ", result: "failed", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
-      require 'pry'; binding.pry
+      
+      get "/api/v1/merchants/#{merchant.id}/revenue"
+
+      revenue = JSON.parse(response.body)
+      expect(response).to be_successful
+      expect(revenue).to eq({"revenue" => "250.00"})
     end
   end
 end

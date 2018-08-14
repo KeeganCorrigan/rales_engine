@@ -10,7 +10,10 @@ Rails.application.routes.draw do
         get '/random.json', to: 'random#show'
       end
 
-      resources :merchants, only: [:index, :show]
+      resources :merchants, only: [:index, :show] do
+        get '/revenue', to: 'merchant_revenue#show'
+      end
+
       resources :items, only: [:index, :show]
       resources :transactions, only: [:index, :show]
       resources :invoice_items, only: [:index, :show]
