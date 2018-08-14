@@ -3,7 +3,7 @@ FactoryBot.define do
     customer nil
     merchant nil
     status "MyString"
-    created_at "2018-08-13 18:19:50"
-    updated_at "2018-08-13 18:19:50"
+    created_at { 3.years.ago}
+    updated_at { 2.years.ago}
   end
 end
