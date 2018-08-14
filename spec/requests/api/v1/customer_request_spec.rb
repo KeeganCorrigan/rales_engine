@@ -7,25 +7,28 @@ describe 'customers API' do
 
       get '/api/v1/customers'
 
-      customers = JSON.parse(response.body, symbolize_names: true)
-      customer = customer.first
 
-      expect(response).to be successful
-      expect(customer.count).to eq(3)
-      expect(invoice).to have_key(:first_name)
-      expect(invoice).to have_key(:last_name)
-      expect(invoice).to have_key(:id)
+      customers = JSON.parse(response.body, symbolize_names: true)
+      customer = customers.first
+
+      expect(response).to be_successful
+      expect(customers.count).to eq(3)
+      expect(customer).to have_key(:first_name)
+      expect(customer).to have_key(:last_name)
+      expect(customer).to_not have_key(:created_at)
+      expect(customer).to_not have_key(:updated_at)
     end
   end
+
   context 'GET /api/v1/customers/#{id}' do
     it 'can return customer based on id' do
-      id = create(:customer.id)
+      id = create(:customer).id
 
-      get "api/v1/customers/#{id}"
+      get "/api/v1/customers/#{id}"
 
       customer = JSON.parse(response.body, symbolize_names: true)
 
-      expect(response).to be successful
+      expect(response).to be_successful
       expect(customer[:id]).to eq(id)
     end
   end
