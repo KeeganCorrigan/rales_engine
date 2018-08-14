@@ -26,7 +26,7 @@ describe 'invoices API' do
 
       invoice = JSON.parse(response.body, symbolize_names: true)
 
-      expect(respons).to be_successful
+      expect(response).to be_successful
       expect(invoice[:id]).to eq(id)
     end
   end
