@@ -17,6 +17,8 @@ namespace :import do
     puts "There are #{Customer.count} customers in the database!"
     seed_data('./db/data/invoices.csv', Invoice)
     puts "There are #{Invoice.count} invoices in the database!"
+    seed_data('./db/data/items.csv', Item)
+    puts "There are #{Item.count} items in the database!"
     seed_data('./db/data/transactions.csv', Transaction)
     puts "There are #{Transaction.count} transactions in the database!"
   end
