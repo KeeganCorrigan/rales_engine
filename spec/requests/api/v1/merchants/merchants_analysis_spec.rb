@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Merchants API' do
   context 'GET /api/v1/merchants/:id/revenue' do
-    it 'will display total revenue for a single merchant' do
+    xit 'will display total revenue for a single merchant' do
       merchant = create(:merchant)
       customer = create(:customer)
       item = Item.create!(name: "VaporLord", description: "Wanna smork?", merchant: merchant, unit_price: 5000, created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC" )
