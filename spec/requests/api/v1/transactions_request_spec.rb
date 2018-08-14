@@ -13,7 +13,8 @@ describe "Transaction API" do
       transaction = transactions.first
 
       expect(transactions.count).to eq(3)
-      expect(transaction).to have_key(:name)
+      expect(transaction).to have_key(:credit_card_number)
+      expect(transaction).to have_key(:result)      
     end
   end
 
