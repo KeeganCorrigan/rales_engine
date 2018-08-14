@@ -3,6 +3,13 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :invoices, only: [:index, :show]
+
+      namespace :merchants do
+        get '/find', to: 'find#show'
+        get '/find_all', to: 'find#index'
+        get '/random.json', to: 'random#show'
+      end
+
       resources :merchants, only: [:index, :show]
       resources :items, only: [:index, :show]
       resources :transactions, only: [:index, :show]
