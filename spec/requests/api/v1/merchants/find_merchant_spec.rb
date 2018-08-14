@@ -9,7 +9,7 @@ describe "Merchants API" do
       name = merchant.name
       id = merchant.id
 
-      get "/api/v1/merchants/find?#{merchant.id}"
+      get "/api/v1/merchants/find?id=#{merchant.id}"
 
       merchant = JSON.parse(response.body, symbolize_names: true)
 
