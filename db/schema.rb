@@ -48,7 +48,18 @@ ActiveRecord::Schema.define(version: 20180814013550) do
     t.datetime "updated_at"
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "invoice_id"
+    t.string "credit_card_number"
+    t.string "credit_card_expiration_date"
+    t.string "result"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["invoice_id"], name: "index_transactions_on_invoice_id"
+  end
+
   add_foreign_key "invoices", "customers"
   add_foreign_key "invoices", "merchants"
   add_foreign_key "items", "merchants"
+  add_foreign_key "transactions", "invoices"
 end
