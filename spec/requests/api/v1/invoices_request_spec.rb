@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'invoices API' do
   context 'GET /api/v1/invoices' do
     it 'returns a list of invoices' do
+      create_list(:invoice, 3)
 
       get '/api/v1/invoices'
 
