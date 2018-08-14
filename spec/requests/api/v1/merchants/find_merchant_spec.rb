@@ -3,7 +3,7 @@ require "rails_helper"
 describe "Merchants API" do
   context "GET /api/v1/merchants/find?parameters" do
     it "returns a merchant based on id param" do
-      create_list(:merchant, 3)
+      merchants = create_list(:merchant, 3)
 
       merchant = merchants.first
       name = merchant.name
