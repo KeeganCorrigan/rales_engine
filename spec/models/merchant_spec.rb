@@ -27,7 +27,7 @@ describe Merchant, type: :model do
       Transaction.create!(invoice: invoice_2, credit_card_number: 9876, credit_card_expiration_date: " ", result: "success", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
       Transaction.create!(invoice: invoice_3, credit_card_number: 9876, credit_card_expiration_date: " ", result: "failed", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
 
-      expect(merchant.revenue).to eq(25000)
+      expect(merchant.total_revenue).to eq(25000)
     end
   end
 end

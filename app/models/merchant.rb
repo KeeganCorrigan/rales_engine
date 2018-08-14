@@ -3,7 +3,7 @@ class Merchant < ApplicationRecord
 
   has_many :invoices
 
-  def revenue
+  def total_revenue
     invoices.joins(:invoice_items, :transactions)
             .where("transactions.result = 'success'")
             .sum("invoice_items.quantity * invoice_items.unit_price")
@@ -15,11 +15,3 @@ end
 # INNER JOIN invoice_items i_i ON i.id = i_i.invoice_id
 # INNER JOIN transactions t ON i.id = t.invoice_id
 # WHERE m.id = 54 AND t.result = 'success';
-# .where("transactions.status = 'success'")
-#.select("SUM(invoice_items.quantity * invoice_items.unit_price")
-# .select(
-#   Arel::Nodes::NamedFunction.new(
-#     'SUM', [
-#       II.arel_table[:quantity] * II.arel_table[:unit_price]
-#     ]
-#   )
