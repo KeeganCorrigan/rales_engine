@@ -18,7 +18,6 @@ describe 'Items API' do
 			expect(items[0][:id]).to eq(@item.id)
 			expect(items[0][:name]).to eq(@item.name)
 			expect(items[0][:description]).to eq(@item.description)
-			expect(items[0][:unit_price]).to eq(@item.unit_price)
 		end
 
 		it 'returns items based on description param' do
@@ -32,7 +31,6 @@ describe 'Items API' do
 			expect(items[0][:id]).to eq(@item.id)
 			expect(items[0][:name]).to eq(@item.name)
 			expect(items[0][:description]).to eq(@item.description)
-			expect(items[0][:unit_price]).to eq(@item.unit_price)
 		end
 
 		it 'returns items based on merchant_id param' do
@@ -46,7 +44,6 @@ describe 'Items API' do
 			expect(items[0][:id]).to eq(@item.id)
 			expect(items[0][:name]).to eq(@item.name)
 			expect(items[0][:description]).to eq(@item.description)
-			expect(items[0][:unit_price]).to eq(@item.unit_price)
 		end
 
 		it 'returns items based on unit_price param' do
@@ -60,7 +57,6 @@ describe 'Items API' do
 			expect(items[0][:id]).to eq(@item.id)
 			expect(items[0][:name]).to eq(@item.name)
 			expect(items[0][:description]).to eq(@item.description)
-			expect(items[0][:unit_price]).to eq(@item.unit_price)
 		end
 
 		it 'returns items based on created_at param' do
@@ -74,7 +70,6 @@ describe 'Items API' do
 			expect(items[0][:id]).to eq(@item.id)
 			expect(items[0][:name]).to eq(@item.name)
 			expect(items[0][:description]).to eq(@item.description)
-			expect(items[0][:unit_price]).to eq(@item.unit_price)
 		end
 
 		it 'returns items based on updated_at param' do
@@ -88,7 +83,6 @@ describe 'Items API' do
 			expect(items[0][:id]).to eq(@item.id)
 			expect(items[0][:name]).to eq(@item.name)
 			expect(items[0][:description]).to eq(@item.description)
-			expect(items[0][:unit_price]).to eq(@item.unit_price)
 		end
 	end
 end

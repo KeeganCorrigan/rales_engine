@@ -21,7 +21,6 @@ describe 'Items API' do
       expect(item[:name]).to eq(name)
       expect(item[:description]).to eq(description)
       expect(item[:merchant_id]).to eq(merchant_id)
-      expect(item[:unit_price]).to eq(unit_price)
     end
 
     it 'returns an item based on name param' do
@@ -43,7 +42,6 @@ describe 'Items API' do
       expect(item[:name]).to eq(name)
       expect(item[:description]).to eq(description)
       expect(item[:merchant_id]).to eq(merchant_id)
-      expect(item[:unit_price]).to eq(unit_price)
     end
 
     it 'returns an item based on description param' do
@@ -65,7 +63,6 @@ describe 'Items API' do
       expect(item[:name]).to eq(name)
       expect(item[:description]).to eq(description)
       expect(item[:merchant_id]).to eq(merchant_id)
-      expect(item[:unit_price]).to eq(unit_price)
     end
 
     it 'returns an item based on merchant_id param' do
@@ -87,7 +84,6 @@ describe 'Items API' do
       expect(item[:name]).to eq(name)
       expect(item[:description]).to eq(description)
       expect(item[:merchant_id]).to eq(merchant_id)
-      expect(item[:unit_price]).to eq(unit_price)
     end
 
     it 'returns an item based on unit_price param' do
@@ -109,7 +105,6 @@ describe 'Items API' do
       expect(item[:name]).to eq(name)
       expect(item[:description]).to eq(description)
       expect(item[:merchant_id]).to eq(merchant_id)
-      expect(item[:unit_price]).to eq(unit_price)
     end
 
     it 'returns an item based on created_at param' do
@@ -131,7 +126,6 @@ describe 'Items API' do
       expect(item[:name]).to eq(name)
       expect(item[:description]).to eq(description)
       expect(item[:merchant_id]).to eq(merchant_id)
-      expect(item[:unit_price]).to eq(unit_price)
     end
 
     it 'returns an item based on updated_at param' do
@@ -153,7 +147,6 @@ describe 'Items API' do
       expect(item[:name]).to eq(name)
       expect(item[:description]).to eq(description)
       expect(item[:merchant_id]).to eq(merchant_id)
-      expect(item[:unit_price]).to eq(unit_price)
     end
   end
 end
