@@ -56,7 +56,7 @@ describe "Transactions API" do
       expect(transaction[:credit_card_number]).to eq(credit_card_number)
     end
 
-    it "returns a transaction based on invoice id date param" do
+    it "returns a transaction based on invoice id param" do
       transactions = create_list(:transaction, 3)
 
       transaction = transactions.first
@@ -65,6 +65,24 @@ describe "Transactions API" do
       credit_card_number = transaction.credit_card_number
 
       get "/api/v1/transactions/find?invoice_id=#{transaction.invoice_id}"
+
+      transaction = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(transaction[:id]).to eq(id)
+      expect(transaction[:result]).to eq(result)
+      expect(transaction[:credit_card_number]).to eq(credit_card_number)
+    end
+
+    it "returns a transaction based on created at param" do
+      transactions = create_list(:transaction, 3)
+
+      transaction = transactions.first
+      id = transaction.id
+      result = transaction.result
+      credit_card_number = transaction.credit_card_number
+
+      get "/api/v1/transactions/find?created_at=#{transaction.created_at}"
 
       transaction = JSON.parse(response.body, symbolize_names: true)
 
