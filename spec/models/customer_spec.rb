@@ -9,7 +9,8 @@ RSpec.describe Customer, type: :model do
   end
 
   context 'relationships' do
-
+    it { should have_many(:invoices) }
+    it { should have_many(:merchants).through(:invoices) }
   end
 
   describe 'instance methods' do
@@ -35,7 +36,7 @@ RSpec.describe Customer, type: :model do
       Transaction.create!(invoice: invoice_2, credit_card_number: 9876, credit_card_expiration_date: " ", result: "success", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
       Transaction.create!(invoice: invoice_3, credit_card_number: 9876, credit_card_expiration_date: " ", result: "success", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
 
-      expect(custoemr.favorite_merchant).to eq(merchant_1)
+      expect(customer.favorite_merchant).to eq(merchant_1)
     end
   end
 end
