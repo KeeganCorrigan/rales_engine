@@ -40,6 +40,3 @@ class Item < ApplicationRecord
     .limit(limit)
   end
 end
-
-# item.invoices.select("sum(invoice_items.quantity) AS total_quantity, invoices.*").joins(:invoice_items, :transactions).merge(Transaction.success).group
-# ("date_trunc('day', invoice_items.created_at), invoices.id").order("total_quantity DESC").limit(1).first.created_at
