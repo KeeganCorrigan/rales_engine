@@ -21,6 +21,10 @@ Rails.application.routes.draw do
         get '/random.json', to: 'random#show'
       end
 
+      resources :invoices, only: [:index, :show] do
+        get '/transactions', to: 'invoices/transactions#index'
+      end
+
       namespace :invoices do
         get '/find', to: 'find#show'
         get '/find_all', to: 'find#index'
