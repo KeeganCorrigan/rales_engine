@@ -28,5 +28,38 @@ describe "Customers API" do
       expect(customers[0][:id]).to eq(@customer.id)
       expect(customers[0][:first_name]).to eq(@customer.first_name)
     end
+
+    it "returns customers based on last name param" do
+      get "/api/v1/customers/find_all?last_name=#{@customer.last_name}"
+
+      customers = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(customers.length).to eq(3)
+      expect(customers[0][:id]).to eq(@customer.id)
+      expect(customers[0][:first_name]).to eq(@customer.first_name)
+    end
+
+    it "returns customers based on updated at param" do
+      get "/api/v1/customers/find_all?updated_at=#{@customer.updated_at}"
+
+      customers = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(customers.length).to eq(3)
+      expect(customers[0][:id]).to eq(@customer.id)
+      expect(customers[0][:first_name]).to eq(@customer.first_name)
+    end
+
+    it "returns customers based on created at param" do
+      get "/api/v1/customers/find_all?created_at=#{@customer.created_at}"
+
+      customers = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(customers.length).to eq(3)
+      expect(customers[0][:id]).to eq(@customer.id)
+      expect(customers[0][:first_name]).to eq(@customer.first_name)
+    end
   end
 end
