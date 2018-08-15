@@ -3,7 +3,9 @@ require 'rails_helper'
 describe 'Invoices API' do
 	context 'GET /api/v1/invoices/find_all?parameters' do
 		before :each do
-			invoices = create_list(:invoice, 3)
+			customer = create(:customer)
+			merchant = create(:merchant)
+			invoices = create_list(:invoice, 3, customer_id: customer.id, merchant_id: merchant.id)
 			@invoice = invoices.first
 			Invoice.create!(customer: create(:customer), merchant: create(:merchant), status: "something", created_at: "2019-03-27 14:53:59", updated_at: "2029-03-27 14:53:59")
 		end
@@ -24,6 +26,7 @@ describe 'Invoices API' do
 			invoices = JSON.parse(response.body, symbolize_names: true)
 
 			expect(response).to be_successful
+			expect(invoices.length).to eq(3)
 			expect(invoices[0][:id]).to eq(@invoice.id)
 			expect(invoices[0][:status]).to eq(@invoice.status)
 		end
@@ -34,6 +37,7 @@ describe 'Invoices API' do
 			invoices = JSON.parse(response.body, symbolize_names: true)
 
 			expect(response).to be_successful
+			expect(invoices.length).to eq(3)
 			expect(invoices[0][:id]).to eq(@invoice.id)
 			expect(invoices[0][:status]).to eq(@invoice.status)
 		end
@@ -44,6 +48,7 @@ describe 'Invoices API' do
 			invoices = JSON.parse(response.body, symbolize_names: true)
 
 			expect(response).to be_successful
+			expect(invoices.length).to eq(3)
 			expect(invoices[0][:id]).to eq(@invoice.id)
 			expect(invoices[0][:status]).to eq(@invoice.status)
 		end
@@ -54,6 +59,7 @@ describe 'Invoices API' do
 			invoices = JSON.parse(response.body, symbolize_names: true)
 
 			expect(response).to be_successful
+			expect(invoices.length).to eq(3)
 			expect(invoices[0][:id]).to eq(@invoice.id)
 			expect(invoices[0][:status]).to eq(@invoice.status)
 		end
@@ -64,6 +70,7 @@ describe 'Invoices API' do
 			invoices = JSON.parse(response.body, symbolize_names: true)
 
 			expect(response).to be_successful
+			expect(invoices.length).to eq(3)
 			expect(invoices[0][:id]).to eq(@invoice.id)
 			expect(invoices[0][:status]).to eq(@invoice.status)
 		end
