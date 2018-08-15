@@ -1,6 +1,6 @@
 require 'rails_helper' 
 
-describe 'invoices API' do
+describe 'Invoices API' do
 	context 'GET /api/v1/invoices/find_all?parameters' do
 		before :each do
 			invoices = create_list(:invoice, 3)

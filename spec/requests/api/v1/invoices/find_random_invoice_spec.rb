@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "invoices API" do
+describe "Invoices API" do
   context "GET /api/v1/invoices/random.json" do
     it "returns a random invoice resource" do
       invoices = create_list(:invoice, 3)
