@@ -8,10 +8,10 @@ class Merchant < ApplicationRecord
             .where("transactions.result = 'success'")
             .sum("invoice_items.quantity * invoice_items.unit_price")
   end
-end
 
-# SELECT SUM(i_i.quantity * i_i.unit_price) FROM merchants m
-# INNER JOIN invoices i ON m.id = i.merchant_id
-# INNER JOIN invoice_items i_i ON i.id = i_i.invoice_id
-# INNER JOIN transactions t ON i.id = t.invoice_id
-# WHERE m.id = 54 AND t.result = 'success';
+  def total_by_date(date)
+    invoices.joins(:invoice_items, :transactions)
+            .where("transactions.result = 'success' AND invoices.created_at = '#{date}'")
+            .sum("invoice_items.quantity * invoice_items.unit_price")
+  end
+end
