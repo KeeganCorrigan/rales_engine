@@ -2,6 +2,8 @@ class Merchant < ApplicationRecord
   validates_presence_of :name, :updated_at, :created_at
 
   has_many :invoices
+  has_many :invoice_items, through: :invoices
+  has_many :transactions, through: :invoices
 
   def total_revenue
     invoices.joins(:invoice_items, :transactions)
@@ -17,8 +19,7 @@ class Merchant < ApplicationRecord
   end
 
   def self.most_items(merchants_count)
-    binding.pry
-    .select("merchants.*, sum(invoice_items.quantity) AS total_items_sold")
+    select("merchants.*, sum(invoice_items.quantity) AS total_items_sold")
     .joins(:invoice_items, :transactions, :invoices)
     .merge(Transaction.success)
     .group(:id)
