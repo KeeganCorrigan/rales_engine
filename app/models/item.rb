@@ -29,6 +29,16 @@ class Item < ApplicationRecord
     .order("total_quantity DESC")
     .limit(limit)
   end
+
+  def self.most_revenue(limit)
+    # TODO: make faster, maybe?
+    select("sum(invoice_items.quantity * invoice_items.unit_price) AS total_revenue, items.*")
+    .joins(:invoice_items, :transactions, :invoices)
+    .merge(Transaction.success)
+    .group(:id)
+    .order("total_revenue DESC")
+    .limit(limit)
+  end
 end
 
 # item.invoices.select("sum(invoice_items.quantity) AS total_quantity, invoices.*").joins(:invoice_items, :transactions).merge(Transaction.success).group
