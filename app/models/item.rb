@@ -5,6 +5,7 @@ class Item < ApplicationRecord
 
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
+  has_many :transactions, through: :invoices
 
   def most_sold_by_day
     # TODO: adjust presentation of data at serializer level to match spec harness expectations
@@ -17,6 +18,16 @@ class Item < ApplicationRecord
     .limit(1)
     .first
     .created_at
+  end
+
+  def self.most_sold(limit)
+    # TODO: make faster, maybe?
+    select("sum(invoice_items.quantity) AS total_quantity, items.*")
+    .joins(:invoice_items, :transactions, :invoices)
+    .merge(Transaction.success)
+    .group(:id)
+    .order("total_quantity DESC")
+    .limit(limit)
   end
 end
 
