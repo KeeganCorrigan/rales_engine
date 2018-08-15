@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       end
 
       resources :invoices, only: [:index, :show] do
-        get '/transactions', to: '/invoices/transactions#index'
+        get '/transactions', to: 'invoices/transactions#index'
       end
 
       resources :merchants, only: [:index, :show] do
