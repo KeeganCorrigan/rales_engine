@@ -13,13 +13,13 @@ describe 'Inovice Items API' do
 
       get "/api/v1/invoice_items/find?id=#{id}"
 
-      invoice_itme = JSON.parse(response.body, symbolize_names: true)
+      invoice_item = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-      expect(invoice_itme[:id]).to eq(id)
-      expect(invoice_itme[:invoice_id]).to eq(invoice_id)
-      expect(invoice_itme[:itme_id]).to eq(itme_id)
-      expect(invoice_itme[:quantity]).to eq(quantity)
+      expect(invoice_item[:id]).to eq(id)
+      expect(invoice_item[:invoice_id]).to eq(invoice_id)
+      expect(invoice_item[:item_id]).to eq(item_id)
+      expect(invoice_item[:quantity]).to eq(quantity)
     end
   end
 end
