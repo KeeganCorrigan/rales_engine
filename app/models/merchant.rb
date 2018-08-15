@@ -5,13 +5,24 @@ class Merchant < ApplicationRecord
 
   def total_revenue
     invoices.joins(:invoice_items, :transactions)
-            .where("transactions.result = 'success'")
+            .merge(Transaction.success)
             .sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
   def total_by_date(date)
     invoices.joins(:invoice_items, :transactions)
-            .where("transactions.result = 'success' AND invoices.created_at = '#{date}'")
+            .merge(Transaction.success)
+            .where(created_at: date.to_datetime.beginning_of_day..date.to_datetime.end_of_day)
             .sum("invoice_items.quantity * invoice_items.unit_price")
+  end
+
+  def self.most_items(merchants_count)
+    binding.pry
+    .select("merchants.*, sum(invoice_items.quantity) AS total_items_sold")
+    .joins(:invoice_items, :transactions, :invoices)
+    .merge(Transaction.success)
+    .group(:id)
+    .order("total_items_sold DESC")
+    .limit(merchants_count)
   end
 end
