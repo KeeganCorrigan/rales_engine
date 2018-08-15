@@ -16,6 +16,12 @@ Rails.application.routes.draw do
         get '/random.json', to: 'random#show'
       end
 
+      namespace :customers do
+        get '/find', to: 'find#show'
+        get '/find_all', to: 'find#index'
+        get '/random.json', to: 'random#show'
+      end
+
       resources :merchants, only: [:index, :show] do
         get '/revenue', to: 'merchant_revenue#show'
       end
