@@ -8,6 +8,7 @@ describe 'Items API' do
       item = items.first
       id = item.id
       name = item.name
+      unit_price = item.unit_price
       description = item.description
       merchant_id = item.merchant_id
 
@@ -20,105 +21,139 @@ describe 'Items API' do
       expect(item[:name]).to eq(name)
       expect(item[:description]).to eq(description)
       expect(item[:merchant_id]).to eq(merchant_id)
-    end
-    xit 'returns an invoice based on customer_id param' do
-      items = create_list(:invoice, 3)
-
-      invoice = invoices.first
-      id = invoice.id
-      customer_id = invoice.customer_id
-      merchant_id = invoice.merchant_id
-      status = invoice.status
-
-      get "/api/v1/invoices/find?customer_id=#{customer_id}"
-
-      invoice = JSON.parse(response.body, symbolize_names: true)
-
-      expect(response).to be_successful
-      expect(invoice[:id]).to eq(id)
-      expect(invoice[:customer_id]).to eq(customer_id)
-      expect(invoice[:merchant_id]).to eq(merchant_id)
-      expect(invoice[:status]).to eq(status)
+      expect(item[:unit_price]).to eq(unit_price)
     end
 
-    xit 'returns an invoice based on merchant_id param' do
-      invoices = create_list(:invoice, 3)
+    it 'returns an item based on name param' do
+      items = create_list(:item, 3)
 
-      invoice = invoices.first
-      id = invoice.id
-      customer_id = invoice.customer_id
-      merchant_id = invoice.merchant_id
-      status = invoice.status
+      item = items.first
+      id = item.id
+      name = item.name
+      unit_price = item.unit_price
+      description = item.description
+      merchant_id = item.merchant_id
 
-      get "/api/v1/invoices/find?merchant_id=#{merchant_id}"
+      get "/api/v1/items/find?name=#{name}"
 
-      invoice = JSON.parse(response.body, symbolize_names: true)
+      item = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-      expect(invoice[:id]).to eq(id)
-      expect(invoice[:customer_id]).to eq(customer_id)
-      expect(invoice[:merchant_id]).to eq(merchant_id)
-      expect(invoice[:status]).to eq(status)
+      expect(item[:id]).to eq(id)
+      expect(item[:name]).to eq(name)
+      expect(item[:description]).to eq(description)
+      expect(item[:merchant_id]).to eq(merchant_id)
+      expect(item[:unit_price]).to eq(unit_price)
     end
 
-    xit 'returns an invoice based on status param' do
-      invoices = create_list(:invoice, 3)
+    it 'returns an item based on description param' do
+      items = create_list(:item, 3)
 
-      invoice = invoices.first
-      id = invoice.id
-      customer_id = invoice.customer_id
-      merchant_id = invoice.merchant_id
-      status = invoice.status
+      item = items.first
+      id = item.id
+      name = item.name
+      unit_price = item.unit_price
+      description = item.description
+      merchant_id = item.merchant_id
 
-      get "/api/v1/invoices/find?status=#{status}"
+      get "/api/v1/items/find?description=#{description}"
 
-      invoice = JSON.parse(response.body, symbolize_names: true)
+      item = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-      expect(invoice[:id]).to eq(id)
-      expect(invoice[:customer_id]).to eq(customer_id)
-      expect(invoice[:merchant_id]).to eq(merchant_id)
-      expect(invoice[:status]).to eq(status)
+      expect(item[:id]).to eq(id)
+      expect(item[:name]).to eq(name)
+      expect(item[:description]).to eq(description)
+      expect(item[:merchant_id]).to eq(merchant_id)
+      expect(item[:unit_price]).to eq(unit_price)
     end
 
-    xit 'returns an invoice based on updated_at param' do
-      invoices = create_list(:invoice, 3)
+    it 'returns an item based on merchant_id param' do
+      items = create_list(:item, 3)
 
-      invoice = invoices.first
-      id = invoice.id
-      customer_id = invoice.customer_id
-      merchant_id = invoice.merchant_id
-      status = invoice.status
+      item = items.first
+      id = item.id
+      name = item.name
+      unit_price = item.unit_price
+      description = item.description
+      merchant_id = item.merchant_id
 
-      get "/api/v1/invoices/find?updated_at=#{invoice.updated_at}"
+      get "/api/v1/items/find?merchant_id=#{merchant_id}"
 
-      invoice = JSON.parse(response.body, symbolize_names: true)
+      item = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-      expect(invoice[:id]).to eq(id)
-      expect(invoice[:customer_id]).to eq(customer_id)
-      expect(invoice[:merchant_id]).to eq(merchant_id)
-      expect(invoice[:status]).to eq(status)
+      expect(item[:id]).to eq(id)
+      expect(item[:name]).to eq(name)
+      expect(item[:description]).to eq(description)
+      expect(item[:merchant_id]).to eq(merchant_id)
+      expect(item[:unit_price]).to eq(unit_price)
     end
 
-    xit 'returns an invoice based on created_at param' do
-      invoices = create_list(:invoice, 3)
+    it 'returns an item based on unit_price param' do
+      items = create_list(:item, 3)
 
-      invoice = invoices.first
-      id = invoice.id
-      customer_id = invoice.customer_id
-      merchant_id = invoice.merchant_id
-      status = invoice.status
+      item = items.first
+      id = item.id
+      name = item.name
+      unit_price = item.unit_price
+      description = item.description
+      merchant_id = item.merchant_id
 
-      get "/api/v1/invoices/find?created_at=#{invoice.created_at}"
+      get "/api/v1/items/find?unit_price=#{unit_price}"
 
-      invoice = JSON.parse(response.body, symbolize_names: true)
+      item = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-      expect(invoice[:id]).to eq(id)
-      expect(invoice[:customer_id]).to eq(customer_id)
-      expect(invoice[:merchant_id]).to eq(merchant_id)
-      expect(invoice[:status]).to eq(status)
+      expect(item[:id]).to eq(id)
+      expect(item[:name]).to eq(name)
+      expect(item[:description]).to eq(description)
+      expect(item[:merchant_id]).to eq(merchant_id)
+      expect(item[:unit_price]).to eq(unit_price)
+    end
+
+    it 'returns an item based on created_at param' do
+      items = create_list(:item, 3)
+
+      item = items.first
+      id = item.id
+      name = item.name
+      unit_price = item.unit_price
+      description = item.description
+      merchant_id = item.merchant_id
+
+      get "/api/v1/items/find?created_at=#{item.created_at}"
+
+      item = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(item[:id]).to eq(id)
+      expect(item[:name]).to eq(name)
+      expect(item[:description]).to eq(description)
+      expect(item[:merchant_id]).to eq(merchant_id)
+      expect(item[:unit_price]).to eq(unit_price)
+    end
+
+    it 'returns an item based on updated_at param' do
+      items = create_list(:item, 3)
+
+      item = items.first
+      id = item.id
+      name = item.name
+      unit_price = item.unit_price
+      description = item.description
+      merchant_id = item.merchant_id
+
+      get "/api/v1/items/find?updated_at=#{item.updated_at}"
+
+      item = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(item[:id]).to eq(id)
+      expect(item[:name]).to eq(name)
+      expect(item[:description]).to eq(description)
+      expect(item[:merchant_id]).to eq(merchant_id)
+      expect(item[:unit_price]).to eq(unit_price)
     end
   end
 end
