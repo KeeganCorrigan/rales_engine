@@ -190,4 +190,31 @@ describe 'Merchants API' do
       expect(merchant[:id]).to eq(merchant_1.id)
     end
   end
+
+  context "/api/v1/merchants/:id/customers_with_pending_invoices" do
+    it "returns customers favorite merchant" do
+      merchant_1 = create(:merchant)
+
+      customer_1 = create(:customer)
+      customer_2 = create(:customer)
+      customer_3 = create(:customer)
+
+      invoice_1 = merchant_1.invoices.create!(customer: customer_1, status: "shipped", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      invoice_2 = merchant_1.invoices.create!(customer: customer_2, status: "shipped", created_at: "2012-10-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      invoice_3 = merchant_1.invoices.create!(customer: customer_3, status: "shipped", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+
+      Transaction.create!(invoice: invoice_1, credit_card_number: 9876, credit_card_expiration_date: " ", result: "success", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      Transaction.create!(invoice: invoice_2, credit_card_number: 9876, credit_card_expiration_date: " ", result: "failed", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      Transaction.create!(invoice: invoice_3, credit_card_number: 9876, credit_card_expiration_date: " ", result: "failed", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+
+      get "/api/v1/merchants/#{merchant_1.id}/customers_with_pending_invoices"
+
+      customers_json = JSON.parse(response.body, symbolize_names: true)
+      customer = customers_json.first
+
+      expect(response).to be_successful
+      expect(customers_json.length).to eq(2)
+      expect(customer[:id]).to eq(customer_3.id)
+    end
+  end
 end

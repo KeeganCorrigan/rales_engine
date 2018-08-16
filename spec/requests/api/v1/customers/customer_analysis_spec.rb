@@ -27,7 +27,7 @@ describe "Customer API" do
       get "/api/v1/customers/#{customer.id}/favorite_merchant"
 
       merchant_json = JSON.parse(response.body, symbolize_names: true)
-      
+
       expect(response).to be_successful
       expect(merchant_json[:id]).to eq(merchant_1[:id])
     end
