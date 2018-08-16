@@ -4,7 +4,7 @@ class Api::V1::Items::FindController < ApplicationController
 	end
 
 	def index
-		render json: Item.where(find_params)
+		render json: Item.where(find_params), each_serializer: ItemSerializer
 	end
 
 	def find_params
