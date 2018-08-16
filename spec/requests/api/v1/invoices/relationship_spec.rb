@@ -29,12 +29,12 @@ describe "Invoices API" do
         get "/api/v1/invoices/#{invoice.id}/invoice_items"
 
         invoice_items = JSON.parse(response.body, symbolize_names: true)
-        invoice_item = invoice_item.first
+        invoice_item = invoice_items.first
 
         expect(response).to be_successful
-        expect(invoice_items.count).to eq(1)
-        expect(invoice_item[:invoice_item_id]).to eq(invoice_item.id)
+        expect(invoice_items.count).to eq(2)
         expect(invoice_item).to have_key(:unit_price)
       end
+    end
   end
 end
