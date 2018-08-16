@@ -55,5 +55,23 @@ describe "Invoices API" do
         expect(item).to have_key(:unit_price)
       end
     end
+
+    context "GET /api/v1/invoices/#{id}/customer" do
+      it "returns customer associated with invoice" do
+        invoice = create(:invoice)
+
+        first_name = invoice.customer.first_name
+        last_name = invoice.customer.last_name
+
+        get "/api/v1/invoices/#{invoice.id}/customer"
+
+        customer = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response).to be_successful
+        expect(customer[:first_name]).to eq(first_name)
+        expect(customer[:last_name]).to eq(last_name)
+        expect(customer).to have_key(:id)
+      end
+    end
   end
 end
