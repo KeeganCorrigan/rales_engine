@@ -6,8 +6,4 @@ class Api::V1::Merchants::MerchantRevenueController < ApplicationController
       render json: Merchant.find(params[:merchant_id]), serializer: MerchantRevenueSerializer
     end
   end
-
-  def find_params
-    params.permit(:date)
-  end
 end
