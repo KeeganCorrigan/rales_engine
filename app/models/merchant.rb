@@ -8,10 +8,10 @@ class Merchant < ApplicationRecord
   has_many :customers, through: :invoices
 
   def self.revenue_by_date(date)
-    joins(:invoice_items, :transactions, :invoices)
-    .merge(Transaction.success)
-    .where("date_trunc('day', invoices.created_at) = '#{date}'")
-    .sum("invoice_items.quantity * invoice_items.unit_price")
+    joins(:invoices => [:transactions, :invoice_items])
+      .merge(Transaction.success)
+      .where(invoices: { created_at: date.to_datetime.beginning_of_day..date.to_datetime.end_of_day })
+      .sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
   def total_revenue
@@ -29,11 +29,11 @@ class Merchant < ApplicationRecord
 
   def self.most_items(merchants_count)
     select("merchants.*, sum(invoice_items.quantity) AS total_items_sold")
-    .joins(:invoices => [:invoice_items, :transactions])
-    .merge(Transaction.success)
-    .group(:id)
-    .order("total_items_sold DESC")
-    .limit(merchants_count)
+      .joins(:invoices => [:invoice_items, :transactions])
+      .merge(Transaction.success)
+      .group(:id)
+      .order("total_items_sold DESC")
+      .limit(merchants_count)
   end
 
   def favorite_customer
@@ -42,5 +42,14 @@ class Merchant < ApplicationRecord
     .order("count(customers.id)")
     .group(:id)
     .last
+  end
+
+  def self.most_revenue(limit)
+    select("sum(invoice_items.quantity * invoice_items.unit_price) AS revenue, merchants.*")
+    .joins(:invoices => [:invoice_items, :transactions])
+    .merge(Transaction.success)
+    .group(:id)
+    .order("revenue DESC")
+    .limit(limit)
   end
 end

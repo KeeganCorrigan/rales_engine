@@ -56,4 +56,35 @@ describe "Item API" do
       expect(items_json[0][:id]).to eq(item_1.id)
     end
   end
+  context "GET api/v1/items/most_revenue?quantity=x" do
+    it "returns a collection of top selling items by revenue" do
+      merchant_1 = create(:merchant)
+
+      customer = create(:customer)
+
+      item_1 = Item.create!(name: "VaporLord", description: "Wanna smork?", merchant: merchant_1, unit_price: 5000, created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC" )
+      item_2 = Item.create!(name: "VaporQueen", description: "Wanna smork?", merchant: merchant_1, unit_price: 5000, created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC" )
+
+      invoice_1 = merchant_1.invoices.create!(customer: customer, status: "shipped", created_at: "2012-03-10 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      invoice_2 = merchant_1.invoices.create!(customer: customer, status: "shipped", created_at: "2012-10-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+
+      InvoiceItem.create!(invoice: invoice_1, item: item_1, unit_price: item_1.unit_price, quantity: 2, created_at: "2012-03-10 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      InvoiceItem.create!(invoice: invoice_2, item: item_2, unit_price: item_2.unit_price, quantity: 1, created_at: "2012-10-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+
+      Transaction.create!(invoice: invoice_1, credit_card_number: 9876, credit_card_expiration_date: " ", result: "success", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      Transaction.create!(invoice: invoice_2, credit_card_number: 9876, credit_card_expiration_date: " ", result: "success", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+
+      limit = 2
+
+      get "/api/v1/items/most_revenue?quantity=#{limit}"
+
+      items_json = JSON.parse(response.body, symbolize_names: true)
+      item_1_json = items_json.first
+
+      expect(response).to be_successful
+
+      expect(items_json.length).to eq(2)
+      expect(item_1_json[:id]).to eq(item_1.id)
+    end
+  end
 end

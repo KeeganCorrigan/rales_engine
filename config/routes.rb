@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         get '/random.json', to: 'random#show'
         get '/revenue', to: 'revenue_by_date#show'
         get '/most_items', to: 'most_items#index'
+        get '/most_revenue', to: 'most_revenue#index'
       end
 
       namespace :transactions do
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
         get '/find_all', to: 'find#index'
         get '/random.json', to: 'random#show'
         get '/most_items', to: 'most_items#index'
+        get '/most_revenue', to: 'most_revenue#index'
       end
 
       resources :invoices, only: [:index, :show] do
