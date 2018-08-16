@@ -3,8 +3,8 @@ require "rails_helper"
 describe "Items API" do
   context "GET /api/v1/items/:id/invoice_items" do
     it "returns a collection of associated invoice_items" do
-      invoice_items = create_list(:invoice_item, 3)
-      item = invoice_items.first.item
+      item = create(:item)
+      invoice_items = create_list(:invoice_item, 3, item: item)
 
       get "/api/v1/items/#{item.id}/invoice_items"
 
