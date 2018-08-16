@@ -17,7 +17,7 @@ describe "Items API" do
   end
 
   context "GET /api/v1/items/:id/merchant" do
-    it "returns a collection of associated merchant" do
+    it "returns a collection of associated merchants" do
       merchant = create(:merchant)
       item = create(:item, merchant: merchant)
 
