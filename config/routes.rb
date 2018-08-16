@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         get '/find_all', to: 'find#index'
         get '/random.json', to: 'random#show'
         get '/revenue', to: 'revenue_by_date#show'
+        get '/most_items', to: 'most_items#index'
       end
 
       namespace :transactions do
@@ -21,7 +22,6 @@ Rails.application.routes.draw do
         get '/find_all', to: 'find#index'
         get '/random.json', to: 'random#show'
       end
-
 
       namespace :invoices do
         get '/find', to: 'find#show'
@@ -39,6 +39,7 @@ Rails.application.routes.draw do
         get '/find', to: 'find#show'
         get '/find_all', to: 'find#index'
         get '/random.json', to: 'random#show'
+        get '/most_items', to: 'most_items#index'
       end
 
       resources :invoices, only: [:index, :show] do
@@ -57,10 +58,11 @@ Rails.application.routes.draw do
       resources :items, only: [:index, :show] do
         get '/invoice_items', to: 'items/invoice_items#index'
         get '/merchant', to: 'items/merchants#show'
+        get '/best_day', to: 'items/best_day#show'
       end
 
       resources :merchants, only: [:index, :show] do
-        get '/revenue', to: 'merchant_revenue#show'
+        get '/revenue', to: 'merchants/merchant_revenue#show'
         get '/items', to: 'merchants/items#index'
         get '/invoices', to: 'merchants/invoices#index'
         get '/favorite_customer', to: 'merchants/favorite_customers#show'
@@ -71,9 +73,14 @@ Rails.application.routes.draw do
       end
 
       resources :customers, only: [:index, :show] do
-        get '/invoices', to: 'items/invoices#index'
-        get '/transactions', to: 'items/transactions#index'
+        get '/invoices', to: 'customers/invoices#index'
+        get '/transactions', to: 'customers/transactions#index'
+        get '/favorite_merchant', to: 'customers/favorite_merchant#show'
+        get '/revenue', to: 'merchants/merchant_revenue#show'
       end
+
+      resources :transactions, only: [:index, :show]
+
     end
   end
 end
