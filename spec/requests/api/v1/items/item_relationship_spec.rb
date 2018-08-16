@@ -26,7 +26,7 @@ describe "Items API" do
       merchant_json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to be_successful
-      expect(merchant_json.first).to have_key(:id)
+      expect(merchant_json).to have_key(:id)
     end
   end
 end
