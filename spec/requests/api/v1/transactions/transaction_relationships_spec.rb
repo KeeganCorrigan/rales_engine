@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Transactions API' do
-	context 'Get /api/v1/transactions/:id/invoice' do
+	context 'GET /api/v1/transactions/:id/invoice' do
 		it "returns the transaction's invoice" do
 			invoice = create(:invoice)
 			transaction = create(:transaction, invoice: invoice)
