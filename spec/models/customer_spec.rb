@@ -40,4 +40,25 @@ RSpec.describe Customer, type: :model do
       expect(customer.favorite_merchant).to eq(merchant_1)
     end
   end
+
+  describe 'class methods' do
+    it '.customers_with_pending_invoices' do
+      merchant_1 = create(:merchant)
+      merchant_2 = Merchant.create!(name: "oijasodij", updated_at: "2012-03-07 12:54:10 UTC", created_at: "2012-03-07 12:54:10 UTC")
+
+      customer_1 = create(:customer)
+      customer_2 = create(:customer)
+      customer_3 = create(:customer)
+
+      invoice_1 = merchant_1.invoices.create!(customer: customer_1, status: "shipped", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      invoice_2 = merchant_1.invoices.create!(customer: customer_2, status: "shipped", created_at: "2012-10-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      invoice_3 = merchant_1.invoices.create!(customer: customer_3, status: "shipped", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+
+      Transaction.create!(invoice: invoice_1, credit_card_number: 9876, credit_card_expiration_date: " ", result: "success", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      Transaction.create!(invoice: invoice_2, credit_card_number: 9876, credit_card_expiration_date: " ", result: "failed", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+      Transaction.create!(invoice: invoice_3, credit_card_number: 9876, credit_card_expiration_date: " ", result: "failed", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-07 12:54:10 UTC")
+
+      expect(Customer.customers_with_pending_invoices(merchant_1.id)).to eq([customer_3, customer_2])
+    end
+  end
 end
