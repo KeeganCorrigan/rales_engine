@@ -17,5 +17,24 @@ describe "Invoices API" do
       expect(transaction[:invoice_id]).to eq(invoice.id)
       expect(transaction).to have_key(:credit_card_number)
     end
+
+    context "GET /api/v1/invoices/#{id}/invoice_items" do
+      it "returns a list of transactions associated with invoice" do
+        invoice = create(:invoice)
+        item = create(:item)
+
+        invoice.invoice_items.create!(item: item, quantity: 1, unit_price: 500, created_at: "2018-08-13 18:24:47", updated_at: "2018-08-13 18:24:47" )
+        invoice.invoice_items.create!(item: item, quantity: 2, unit_price: 1000, created_at: "2018-08-13 18:24:47", updated_at: "2018-08-13 18:24:47" )
+
+        get "/api/v1/invoices/#{invoice.id}/invoice_items"
+
+        invoice_items = JSON.parse(response.body, symbolize_names: true)
+        invoice_item = invoice_item.first
+
+        expect(response).to be_successful
+        expect(invoice_items.count).to eq(1)
+        expect(invoice_item[:invoice_item_id]).to eq(invoice_item.id)
+        expect(invoice_item).to have_key(:unit_price)
+      end
   end
 end
