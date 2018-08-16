@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         get '/find', to: 'find#show'
         get '/find_all', to: 'find#index'
         get '/random.json', to: 'random#show'
+        get '/revenue', to: 'revenue_by_date#show'
       end
 
       namespace :transactions do
