@@ -15,4 +15,18 @@ describe "Items API" do
       expect(invoice_items_json.first).to have_key(:id)
     end
   end
+
+  context "GET /api/v1/items/:id/merchant" do
+    it "returns a collection of associated merchant" do
+      merchant = create(:merchant)
+      item = create(:item, merchant: merchant)
+
+      get "/api/v1/items/#{item.id}/merchant"
+
+      merchant_json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(merchant_json.first).to have_key(:id)
+    end
+  end
 end
