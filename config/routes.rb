@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         get '/find', to: 'find#show'
         get '/find_all', to: 'find#index'
         get '/random.json', to: 'random#show'
+        get '/revenue', to: 'revenue_by_date#show'
         get '/most_items', to: 'most_items#index'
       end
 
@@ -64,6 +65,7 @@ Rails.application.routes.draw do
         get '/revenue', to: 'merchants/merchant_revenue#show'
         get '/items', to: 'merchants/items#index'
         get '/invoices', to: 'merchants/invoices#index'
+        get '/favorite_customer', to: 'merchants/favorite_customers#show'
       end
 
       resources :transactions, only: [:index, :show] do
