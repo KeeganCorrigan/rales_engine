@@ -62,7 +62,10 @@ Rails.application.routes.draw do
         get '/revenue', to: 'merchant_revenue#show'
       end
 
-      resources :transactions, only: [:index, :show]
+      resources :transactions, only: [:index, :show] do
+        get '/invoice', to: 'transactions/invoice#show'
+      end
+      
       resources :customers, only: [:index, :show]
     end
   end
