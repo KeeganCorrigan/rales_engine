@@ -38,6 +38,7 @@ Rails.application.routes.draw do
         get '/find', to: 'find#show'
         get '/find_all', to: 'find#index'
         get '/random.json', to: 'random#show'
+        get '/most_items', to: 'most_items#index'
       end
 
       resources :invoices, only: [:index, :show] do
