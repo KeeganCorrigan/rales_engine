@@ -2,16 +2,50 @@ class Merchant < ApplicationRecord
   validates_presence_of :name, :updated_at, :created_at
 
   has_many :invoices
+  has_many :invoice_items, through: :invoices
+  has_many :transactions, through: :invoices
+  has_many :customers, through: :invoices
+
+  def self.revenue_by_date(date)
+    joins(:invoice_items, :transactions, :invoices)
+    .merge(Transaction.success)
+    .where("date_trunc('day', invoices.created_at) = '#{date}'")
+    .sum("invoice_items.quantity * invoice_items.unit_price")
+
+    #x.where("date_trunc('day', invoices.created_at) = '2012-03-06'").sum("invoice_items.quantity * invoice_items.unit_price")
+
+    #
+    # .group("date_trunc('day', invoice_items.created_at), invoices.id")
+    # .order("total_quantity DESC")
+  end
 
   def total_revenue
     invoices.joins(:invoice_items, :transactions)
-            .where("transactions.result = 'success'")
+            .merge(Transaction.success)
             .sum("invoice_items.quantity * invoice_items.unit_price")
   end
-end
 
-# SELECT SUM(i_i.quantity * i_i.unit_price) FROM merchants m
-# INNER JOIN invoices i ON m.id = i.merchant_id
-# INNER JOIN invoice_items i_i ON i.id = i_i.invoice_id
-# INNER JOIN transactions t ON i.id = t.invoice_id
-# WHERE m.id = 54 AND t.result = 'success';
+  def total_by_date(date)
+    invoices.joins(:invoice_items, :transactions)
+            .merge(Transaction.success)
+            .where(created_at: date.to_datetime.beginning_of_day..date.to_datetime.end_of_day)
+            .sum("invoice_items.quantity * invoice_items.unit_price")
+  end
+
+  def self.most_items(merchants_count)
+    select("merchants.*, sum(invoice_items.quantity) AS total_items_sold")
+    .joins(:invoice_items, :transactions, :invoices)
+    .merge(Transaction.success)
+    .group(:id)
+    .order("total_items_sold DESC")
+    .limit(merchants_count)
+  end
+
+  def favorite_customer
+    customers.joins(:transactions)
+    .merge(Transaction.success)
+    .order("count(customers.id)")
+    .group(:id)
+    .last
+  end
+end
