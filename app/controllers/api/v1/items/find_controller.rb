@@ -8,6 +8,7 @@ class Api::V1::Items::FindController < ApplicationController
 	end
 
 	def find_params
+		params[:unit_price] = string_to_number(params[:unit_price]) if params[:unit_price].respond_to?(:to_str)
 		params.permit(:id, :name, :merchant_id, :description, :unit_price, :updated_at, :created_at)
 	end
 end
