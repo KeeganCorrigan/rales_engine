@@ -10,4 +10,18 @@ class Customer < ApplicationRecord
              .group(:id)
              .last
   end
+
+  def self.customers_with_pending_invoices(merchant_id)
+    find_by_sql(
+                  "SELECT c.* FROM customers c
+                  INNER JOIN invoices i ON i.customer_id = c.id
+                  WHERE i.merchant_id = #{merchant_id}
+                    EXCEPT
+                    SELECT c.* FROM customers c
+                    INNER JOIN invoices i ON i.customer_id = c.id
+                    INNER JOIN transactions t ON t.invoice_id = i.id
+                    WHERE i.merchant_id = #{merchant_id} AND t.result = 'success'
+                  ;"
+                )
+  end
 end
