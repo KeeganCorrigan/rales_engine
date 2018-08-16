@@ -12,12 +12,6 @@ class Merchant < ApplicationRecord
     .merge(Transaction.success)
     .where("date_trunc('day', invoices.created_at) = '#{date}'")
     .sum("invoice_items.quantity * invoice_items.unit_price")
-
-    #x.where("date_trunc('day', invoices.created_at) = '2012-03-06'").sum("invoice_items.quantity * invoice_items.unit_price")
-
-    #
-    # .group("date_trunc('day', invoice_items.created_at), invoices.id")
-    # .order("total_quantity DESC")
   end
 
   def total_revenue
