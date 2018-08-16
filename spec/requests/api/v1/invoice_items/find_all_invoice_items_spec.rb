@@ -25,7 +25,7 @@ describe 'Invoice Items API' do
     get "/api/v1/invoice_items/find_all?item_id=#{@invoice_item.item_id}"
 
     invoice_items = JSON.parse(response.body, symbolize_names: true)
-    
+
     expect(response).to be_successful
     expect(invoice_items.length).to eq(3)
     expect(invoice_items[0][:id]).to eq(@invoice_item.id)
@@ -58,6 +58,7 @@ describe 'Invoice Items API' do
   end
 
   it 'returns invoice_items based on unit_price param' do
+
     get "/api/v1/invoice_items/find_all?unit_price=#{@invoice_item.unit_price}"
 
     invoice_items = JSON.parse(response.body, symbolize_names: true)
