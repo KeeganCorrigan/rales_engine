@@ -14,7 +14,7 @@ ___
 2. Run these commands:
     * `$ cd rales_engine`
     * `$ bundle update`
-    * `$ rails db:{create,migrate}`
+    * `$ rails db:{drop,create,migrate}`
     * `$ rake import:sales_engine_data` (Seeds the database with the included CSVs.)
     * `$ rails s`
     ---
