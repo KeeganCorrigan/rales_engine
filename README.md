@@ -12,9 +12,10 @@ ___
     * `$ git clone git@github.com:KeeganCorrigan/rales_engine.git`
 
 2. Run these commands:
+    * `$ cd rales_engine`
     * `$ bundle update`
-    * `$ rails db:{create,migrate}`
-    * `$ rake import:sales_engine_data` (Seeds the database with the included CSVs.)
+    * `$ rails db:{drop,create,migrate}`
+    * `$ rake import:sales_engine_data` (Seeds the database with the included CSVs. This takes a few minutes.)
     * `$ rails s`
     ---
 3. To test the API against the spec harness we worked with, clone it down from [here](https://github.com/turingschool/rales_engine_spec_harness)
