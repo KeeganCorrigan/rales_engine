@@ -8,7 +8,6 @@ class Item < ApplicationRecord
   has_many :transactions, through: :invoices
 
   def most_sold_by_day
-    # TODO: adjust presentation of data at serializer level to match spec harness expectations
     invoices
     .select("sum(invoice_items.quantity) AS total_quantity, invoices.*")
     .joins(:invoice_items, :transactions)
@@ -21,7 +20,7 @@ class Item < ApplicationRecord
   end
 
   def self.most_sold(limit)
-    # TODO: make faster, maybe?
+    unscoped.
     select("sum(invoice_items.quantity) AS total_quantity, items.*")
     .joins(:invoice_items, :transactions, :invoices)
     .merge(Transaction.success)
@@ -31,7 +30,6 @@ class Item < ApplicationRecord
   end
 
   def self.most_revenue(limit)
-    # TODO: make faster, maybe?
     select("sum(invoice_items.quantity * invoice_items.unit_price) AS total_revenue, items.*")
     .joins(:invoice_items, :transactions, :invoices)
     .merge(Transaction.success)

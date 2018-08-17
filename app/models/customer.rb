@@ -6,9 +6,11 @@ class Customer < ApplicationRecord
   has_many :transactions, through: :invoices
 
   def favorite_merchant
-    merchants.order("count(merchants.id)")
-             .group(:id)
-             .last
+    merchants.joins(:transactions)
+    .merge(Transaction.success)
+    .order("count(merchants.id)")
+    .group(:id)
+    .last
   end
 
   def self.customers_with_pending_invoices(merchant_id)
