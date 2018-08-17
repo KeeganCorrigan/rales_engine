@@ -7,14 +7,11 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
   has_many :transactions, through: :invoices
 
-  default_scope -> {order(id: :asc)}
-
   def most_sold_by_day
     invoices
-    .unscoped
     .select("sum(invoice_items.quantity) AS total_quantity, invoices.*")
     .joins(:invoice_items, :transactions)
-    .merge(Transaction.unscoped.success)
+    .merge(Transaction.success)
     .group("date_trunc('day', invoice_items.created_at), invoices.id")
     .order("total_quantity DESC")
     .limit(1)
@@ -26,7 +23,7 @@ class Item < ApplicationRecord
     unscoped.
     select("sum(invoice_items.quantity) AS total_quantity, items.*")
     .joins(:invoice_items, :transactions, :invoices)
-    .merge(Transaction.unscoped.success)
+    .merge(Transaction.success)
     .group(:id)
     .order("total_quantity DESC")
     .limit(limit)
@@ -35,7 +32,7 @@ class Item < ApplicationRecord
   def self.most_revenue(limit)
     select("sum(invoice_items.quantity * invoice_items.unit_price) AS total_revenue, items.*")
     .joins(:invoice_items, :transactions, :invoices)
-    .merge(Transaction.unscoped.success)
+    .merge(Transaction.success)
     .group(:id)
     .order("total_revenue DESC")
     .limit(limit)

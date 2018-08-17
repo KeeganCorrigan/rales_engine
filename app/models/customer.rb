@@ -5,11 +5,9 @@ class Customer < ApplicationRecord
   has_many :merchants, through: :invoices
   has_many :transactions, through: :invoices
 
-  default_scope -> {order(id: :asc)}
-
   def favorite_merchant
-    merchants.unscoped.joins(:transactions)
-    .merge(Transaction.unscoped.success)
+    merchants.joins(:transactions)
+    .merge(Transaction.success)
     .order("count(merchants.id)")
     .group(:id)
     .last
