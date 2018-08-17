@@ -20,24 +20,24 @@ ___
     * If you want to run a local test suite `$ rspec` otherwise you can open up `localhost:3000` in your browser and try a route!
 
       ---
-      ```
+      ```ruby
       Some Example Endpoints:
-      `GET /api/v1/merchants/:id/revenue`
-      `GET /api/v1/merchants/:id/revenue?date=x`
-      `GET /api/v1/merchants/most_items?quantity=x`
-      `GET /api/v1/customers/:id/favorite_merchant`
-      `GET /api/v1/items/:id/best_day`
-      `GET /api/v1/items/most_items?quantity=x`
-      `GET /api/v1/invoices/:id/items` returns a collection of associated items
-      `GET /api/v1/invoices/:id/customer` returns the associated customer
+      GET /api/v1/merchants/:id/revenue
+      GET /api/v1/merchants/:id/revenue?date=x
+      GET /api/v1/merchants/most_items?quantity=x
+      GET /api/v1/customers/:id/favorite_merchant
+      GET /api/v1/items/:id/best_day
+      GET /api/v1/items/most_items?quantity=x
+      GET /api/v1/invoices/:id/items #returns a collection of associated items
+      GET /api/v1/invoices/:id/customer #returns the associated customer
 
       Some Example Business Intelligence Endpoints:
-      `GET /api/v1/merchants/most_revenue?quantity=x` returns the top x merchants ranked by total revenue
-      `GET /api/v1/merchants/most_items?quantity=x` returns the top x merchants ranked by total number of items sold
-      `GET /api/v1/merchants/revenue?date=x` returns the total revenue for date x across all merchants
-      `GET /api/v1/items/most_revenue?quantity=x` returns the top x items ranked by total revenue generated
-      `GET /api/v1/items/most_items?quantity=x` returns the top x item instances ranked by total number sold
-      `GET /api/v1/items/:id/best_day` returns the date with the most sales for the given item using the invoice date. If there are multiple days with equal number of sales, return the most recent day.
+      GET /api/v1/merchants/most_revenue?quantity=x #returns the top x merchants ranked by total revenue
+      GET /api/v1/merchants/most_items?quantity=x #returns the top x merchants ranked by total number of items sold
+      GET /api/v1/merchants/revenue?date=x #returns the total revenue for date x across all merchants
+      GET /api/v1/items/most_revenue?quantity=x #returns the top x items ranked by total revenue generated
+      GET /api/v1/items/most_items?quantity=x #returns the top x item instances ranked by total number sold
+      GET /api/v1/items/:id/best_day #returns the date with the most sales for the given item using the invoice date. If there are multiple days with equal number of sales, return the most recent day.
       ```
       ___
 
