@@ -39,9 +39,8 @@ ___
       GET /api/v1/items/most_items?quantity=x #returns the top x item instances ranked by total number sold
       GET /api/v1/items/:id/best_day #returns the date with the most sales for the given item using the invoice date.
       ```
-      ___
+      ---
 
-    ---
 3. To test the API against the spec harness we worked with, clone it down from [here](https://github.com/turingschool/rales_engine_spec_harness)
     * `$ git clone https://github.com/turingschool/rales_engine_spec_harness.git`
     * `$ cd rales_engine_spec_harness`
