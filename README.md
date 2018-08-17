@@ -1,7 +1,7 @@
 # Rales Engine
 
 
-## Sales Engine with an R because rails.
+## Sales Engine with an R because Rails.
 
 ### Rales Engine is a JSON API that exposes sales data from a dataset pulled from [Etsy](https://www.etsy.com).
 #### This project was completed as part of the Back End Module 3 curriculumn at Turing. The spec for the project can be found [here](http://backend.turing.io/module3/projects/rails_engine)
