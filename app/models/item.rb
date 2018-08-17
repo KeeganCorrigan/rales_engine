@@ -20,9 +20,8 @@ class Item < ApplicationRecord
   end
 
   def self.most_sold(limit)
-    unscoped.
     select("sum(invoice_items.quantity) AS total_quantity, items.*")
-    .joins(:invoice_items, :transactions, :invoices)
+    .joins(:invoice_items, invoices: :transactions)
     .merge(Transaction.success)
     .group(:id)
     .order("total_quantity DESC")
@@ -31,7 +30,7 @@ class Item < ApplicationRecord
 
   def self.most_revenue(limit)
     select("sum(invoice_items.quantity * invoice_items.unit_price) AS total_revenue, items.*")
-    .joins(:invoice_items, :transactions, :invoices)
+    .joins(:invoice_items, invoices: :transactions)
     .merge(Transaction.success)
     .group(:id)
     .order("total_revenue DESC")
