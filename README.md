@@ -12,6 +12,7 @@ ___
     * `$ git clone git@github.com:KeeganCorrigan/rales_engine.git`
 
 2. Run these commands:
+    * `$ cd rales_engine`
     * `$ bundle update`
     * `$ rails db:{create,migrate}`
     * `$ rake import:sales_engine_data` (Seeds the database with the included CSVs.)
